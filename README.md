@@ -10,7 +10,7 @@ Simple implementation of a ring buffer that makes its content accessible to STL 
 `struct RingBufferRange`
 - `ContentType`: type that will be enqueued
 - type constaints ensure that queue elements can be default constructed when the queue object is constructed, (nothrow) copy assigned when an element is enqueued and (nothrow) copy constructed when it's dequeued
-- `length`: max number of element the queue can contain, determines the size of the ring buffer
+- `length`: max number of elements the queue can contain, determines the size of the ring buffer
 - constrained to powers of two to prevent costly modulus operations when computing indices in ring buffer
 
 ### relevant members and interfaces
@@ -19,7 +19,7 @@ Simple implementation of a ring buffer that makes its content accessible to STL 
 - forward iterator type exposed to access content of ring buffer
 
 #### `Iterator::Iterator(ContentType* const, ContentType* const)`
-- constructor for iterator member type, takes a pointer to the base of the ring buffer and a pointer to the first enqueued element as arguments
+- constructor for iterator member type, takes a pointer to the base of the ring buffer and a pointer to the first element as arguments
 
 #### `Iterator::operator*`
 `ContentType& Iterator::operator*() const noexcept`
@@ -67,5 +67,5 @@ Simple implementation of a ring buffer that makes its content accessible to STL 
 #### `emplace`
 `template<typename... Args>`<br>
 `requires std::is_nothrow_constructible_v<ContentType, Args...> && std::is_move_assignable_v<ContentType>`<br>
-`bool BUFFER_RANGE::emplace(Args... args) noexcept`
+`bool emplace(Args... args) noexcept`
 - contructs an entry in-place using `args` as arguments for the constructor of `ContentType`
